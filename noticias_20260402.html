@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumen de Noticias — 2 de abril de 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f9f7;
+      --surface: #ffffff;
+      --border: #e2e2de;
+      --text: #111110;
+      --muted: #6b6b68;
+      --tag-bg: #efefed;
+      --shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      --radius: 10px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 18px;
+      line-height: 1.65;
+      padding: 0 0 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--text);
+      color: #fff;
+      padding: 36px 24px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header .kicker {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 6px;
+    }
+    header h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    header .sub {
+      margin-top: 6px;
+      font-size: 13px;
+      opacity: 0.5;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ── MARKET TICKER ── */
+    .market-strip {
+      background: var(--text);
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 13px;
+      border-top: 1px solid #2a2a28;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .market-strip span {
+      display: inline-block;
+      margin-right: 24px;
+    }
+    .market-strip .up   { color: #a8e6a3; }
+    .market-strip .down { color: #f0a0a0; }
+    .market-strip .label { opacity: 0.5; margin-right: 4px; }
+
+    /* ── SECTION TITLE ── */
+    .section-label {
+      margin: 36px 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 22px 18px;
+      margin-bottom: 14px;
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .card-tag {
+      flex-shrink: 0;
+      background: var(--tag-bg);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+    .card h2 {
+      font-size: clamp(17px, 4vw, 20px);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      color: #3a3a38;
+      font-size: clamp(15px, 3.5vw, 17px);
+      line-height: 1.65;
+    }
+    .card-source {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-source::before {
+      content: "Fuente";
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── MARKET CARDS ── */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .market-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .market-card .m-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .market-card .m-value {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .market-card .m-change {
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    .pos { color: #2a7a2a; }
+    .neg { color: #a82222; }
+    .neu { color: var(--muted); }
+
+    /* ── RATES TABLE ── */
+    .rates-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .rates-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    .rates-card thead tr {
+      background: var(--tag-bg);
+    }
+    .rates-card th {
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+    }
+    .rates-card td {
+      padding: 11px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .rates-card td:last-child {
+      text-align: right;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 52px;
+      border-top: 1px solid var(--border);
+      padding: 28px 16px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.8;
+    }
+    footer strong { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Resumen de Prensa — México</div>
+  <h1>Noticias del 2 de abril de 2026</h1>
+  <div class="sub">Análisis basado en primeras planas nacionales, financieras, columnas y trascendidos</div>
+</header>
+
+<!-- Ticker rápido -->
+<div class="market-strip">
+  <span><span class="label">USD/MXN</span>18.31</span>
+  <span><span class="label">EUR/MXN</span>20.91</span>
+  <span><span class="label">BMV</span><span class="up">69,702 ▲1.59%</span></span>
+  <span><span class="label">Dow</span><span class="down">46,565 ▼0.46%</span></span>
+  <span><span class="label">Nasdaq</span><span class="down">21,640 ▼1.16%</span></span>
+  <span><span class="label">Mezcla Mex</span>$96.56/bbl</span>
+  <span><span class="label">CETES 28d</span>6.64%</span>
+  <span><span class="label">Inflación anual</span>4.02%</span>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════
+       SECCIÓN: POLÍTICA
+  ════════════════════════════════════ -->
+  <div class="section-label">Política</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Cancillería</span>
+      <h2>Juan Ramón de la Fuente deja la SRE; Roberto Velasco toma el cargo</h2>
+    </div>
+    <p>
+      El canciller Juan Ramón de la Fuente presentó su renuncia a la presidenta Claudia Sheinbaum por un problema de columna vertebral que lo aqueja desde hace meses. Prometió reincorporarse al gobierno en otra función una vez que se rehabilite. Roberto Velasco, subsecretario para América del Norte y con experiencia directa en la relación con Donald Trump, asume como encargado del despacho y se perfila para ser el canciller más joven de México desde 1935.
+    </p>
+    <p style="margin-top:10px">
+      El cambio ocurre en uno de los momentos más delicados de la relación bilateral: está en proceso la revisión del TMEC y aumentan las presiones políticas y de seguridad desde Washington.
+    </p>
+    <div class="card-source">Crónica · Milenio · La Razón · Historias de NegoCEOs</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">INE</span>
+      <h2>Se acercan los relevos en el INE: consejeros en competencia</h2>
+    </div>
+    <p>
+      La consejera presidenta del IECM Patricia Avendaño reconoció que sus colegas Erika Estrada, Sonia Pérez y Ernesto Ramos Mega son candidatos competentes para ocupar los dos espacios que quedarán vacantes en el INE el 4 de abril. Ambas sillas son actualmente ocupadas por exintegrantes del entonces IEDF.
+    </p>
+    <div class="card-source">Trascendidos (ICE Asesores)</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECCIÓN: NACIONAL
+  ════════════════════════════════════ -->
+  <div class="section-label">Nacional</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Espacio</span>
+      <h2>Despega Artemis II: primer viaje tripulado a la Luna en 54 años</h2>
+    </div>
+    <p>
+      La misión Artemis II despegó marcando una nueva era en la conquista del espacio. La tripulación es diversa e incluye a tres astronautas. El viaje de 10 días es descrito como histórico y simboliza el regreso humano al entorno lunar tras más de medio siglo.
+    </p>
+    <div class="card-source">La Jornada · El Universal</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Emergencia</span>
+      <h2>Rescate en Sinaloa: a 25 metros de los mineros, el agua frena el avance</h2>
+    </div>
+    <p>
+      A una semana del derrumbe en un yacimiento de oro en el municipio de Rosario, los rescatistas están a solo 25 metros de donde se presume se encuentran los tres trabajadores atrapados. La alta concentración de agua impide avanzar. Se instala cableado eléctrico para conectar una bomba de extracción. El lunes se liberó a otro minero con vida.
+    </p>
+    <div class="card-source">La Jornada</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Aviación</span>
+      <h2>AIFA llega a 18.6 millones de pasajeros; Sheinbaum lo celebra</h2>
+    </div>
+    <p>
+      La presidenta destacó que del total acumulado, 7 millones corresponden a 2025. Mexicana de Aviación ha vendido 1 millón 22 mil boletos. El Aeropuerto Internacional Felipe Ángeles se consolida como un aeropuerto rentable con "potencial de crecimiento muy grande", según la mandataria.
+    </p>
+    <div class="card-source">La Jornada</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Social / Salud</span>
+      <h2>Autismo en adultos: madurar sin un sistema que acompañe</h2>
+    </div>
+    <p>
+      Sin un sistema diseñado para la independencia, crecer se convierte en un nuevo reto para las personas neurodivergentes. El reportaje destaca que el apoyo institucional se concentra en la infancia y deja un vacío en la adultez.
+    </p>
+    <div class="card-source">Excélsior</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECCIÓN: ECONOMÍA Y FINANZAS
+  ════════════════════════════════════ -->
+  <div class="section-label">Economía y Finanzas</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Política Económica</span>
+      <h2>SHCP: crecimiento moderado del PIB, 1.8–2.8% en 2026</h2>
+    </div>
+    <p>
+      La Secretaría de Hacienda presentó los Pre-Criterios Generales de Política Económica 2027. Para 2026 proyecta un crecimiento real anual de entre <strong>1.8 y 2.8%</strong>, y para 2027 de entre <strong>1.9 y 2.9%</strong>. El secretario Édgar Amador sustenta el optimismo en los amortiguadores fiscales de México, aunque las cifras representan un crecimiento "muy poco significativo" según analistas.
+    </p>
+    <div class="card-source">Milenio · El Economista · La Razón · Trascendidos</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Inflación / Banxico</span>
+      <h2>Inflación en 4.63%: 1.63 puntos sobre la meta de Banxico</h2>
+    </div>
+    <p>
+      La inflación anual en la primera quincena de marzo alcanzó el 4.63%, superando en 1.63 puntos porcentuales la meta puntual del Banco de México (3%). La receta ortodoxa de política monetaria indica subir o mantener la Tasa de Interés Interbancaria (TIIE). La Junta de Gobierno del Banco de México enfrenta la decisión en un contexto de desaceleración económica.
+    </p>
+    <div class="card-source">El Economista — columna de Arturo Damm Arnal</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Justicia / Fiscal</span>
+      <h2>UIF tiene en la mira a Salinas Pliego; amparo de 2022 podría caer</h2>
+    </div>
+    <p>
+      Un posible fallo de la Corte Suprema facultaría a la Unidad de Inteligencia Financiera para analizar la información bancaria de Ricardo Salinas Pliego en un periodo de hasta <strong>10 años</strong>. La columna de Carlos Fernández Vega contextualiza el caso con los Papeles de Panamá y el uso histórico de paraísos fiscales y empresas <em>offshore</em> por parte de multimillonarios mexicanos.
+    </p>
+    <div class="card-source">La Jornada — México SA (Carlos Fernández Vega)</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Aeronáutica</span>
+      <h2>TUA del AICM sube: vuelos nacionales a $30.59 USD, internacionales a $58.09 USD</h2>
+    </div>
+    <p>
+      A partir del 1 de abril, la Tarifa de Uso Aeroportuario del AICM aumentó un 2.9% y 3% para vuelos nacionales e internacionales respectivamente. Los turistas que usaron el AICM en Semana Santa enfrentaron complicaciones adicionales por las obras de cara al Mundial de Futbol.
+    </p>
+    <div class="card-source">El Economista · La Razón</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECCIÓN: ENERGÍA
+  ════════════════════════════════════ -->
+  <div class="section-label">Energía</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">CFE</span>
+      <h2>CFE moderniza la red eléctrica nacional con ampliación de capacidad</h2>
+    </div>
+    <p>
+      La CFE, dirigida por Emilia Calleja, avanza en el fortalecimiento de la Red Nacional de Transmisión. En Baja California modernizó la Subestación Presidente Juárez para atender a 122 mil usuarios. En Querétaro, la línea El Sauz–San Ildefonso aumentó su capacidad de 110 a 180 MW.
+    </p>
+    <div class="card-source">Trascendidos (ICE Asesores)</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SECCIÓN: INTERNACIONAL / DEPORTES
+  ════════════════════════════════════ -->
+  <div class="section-label">Internacional</div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-tag">Mundial / FIFA</span>
+      <h2>FIFA maniobra para reemplazar a Irán en el Mundial por su guerra con EU</h2>
+    </div>
+    <p>
+      Ante la guerra entre Irán y Estados Unidos, existe incertidumbre sobre si la selección iraní —que ya está clasificada— podrá participar en el torneo. Se rumorea que Gianni Infantino, presidente de la FIFA, busca la forma de promover a otra selección en su lugar, al más puro estilo de las "maromas" políticas del organismo futbolero.
+    </p>
+    <div class="card-source">Trascendidos (ICE Asesores)</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       MERCADOS DEL DÍA
+  ════════════════════════════════════ -->
+  <div class="section-label">Mercados — 2 de abril de 2026</div>
+
+  <div class="market-grid">
+    <div class="market-card">
+      <div class="m-label">USD / MXN</div>
+      <div class="m-value">18.31</div>
+      <div class="m-change neu">Ventanilla</div>
+    </div>
+    <div class="market-card">
+      <div class="m-label">EUR / MXN</div>
+      <div class="m-value">20.91</div>
+      <div class="m-change neu">—</div>
+    </div>
+    <div class="market-card">
+      <div class="m-label">BMV</div>
+      <div class="m-value">69,702</div>
+      <div class="m-change pos">▲ 1.59%</div>
+    </div>
+    <div class="market-card">
+      <div class="m-label">Dow Jones</div>
+      <div class="m-value">46,565</div>
+      <div class="m-change neg">▼ 0.46%</div>
+    </div>
+    <div class="market-card">
+      <div class="m-label">Nasdaq</div>
+      <div class="m-value">21,640</div>
+      <div class="m-change neg">▼ 1.16%</div>
+    </div>
+    <div class="market-card">
+      <div class="m-label">Mezcla Mex.</div>
+      <div class="m-value">$96.56</div>
+      <div class="m-change neu">dpb</div>
+    </div>
+  </div>
+
+  <div class="rates-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>CETES 28 días</td><td>6.64%</td></tr>
+        <tr><td>CETES 91 días</td><td>6.82%</td></tr>
+        <tr><td>TIIE 28 días</td><td>7.19%</td></tr>
+        <tr><td>Inflación 1a quincena marzo 2026</td><td>+0.62%</td></tr>
+        <tr><td>Inflación anual (feb 2025 – feb 2026)</td><td>+4.02%</td></tr>
+        <tr><td>Reservas Internacionales</td><td>254,070 mdd</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>Fuente primaria:</strong> Resumen de Noticias del 2 de abril de 2026<br>
+  Elaborado por <strong>Imagen y Comunicación Empresarial (ICE Asesores)</strong> · <em>ice-asesores.com</em><br>
+  Medios citados: La Jornada · Milenio · Excélsior · Crónica · La Razón · El Economista · El Universal<br>
+  Columnas: Carlos Fernández Vega · Arturo Damm Arnal · Rogelio Várela · Mario Maldonado<br>
+  <br>
+  Análisis estructurado a partir de OCR del archivo original · <em>news_20260402.json</em>
+</footer>
+
+</body>
+</html>
