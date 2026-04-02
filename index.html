@@ -3,242 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Framings — Resúmenes de Noticias</title>
+  <title>Framings</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: #f9f9f7;
-      --surface: #ffffff;
-      --border: #e2e2de;
-      --text: #111110;
-      --muted: #6b6b68;
-      --tag-bg: #efefed;
-      --shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
-      --radius: 10px;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 18px;
-      line-height: 1.65;
+      background: #f9f9f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── HEADER ── */
-    header {
-      background: var(--text);
-      color: #fff;
-      padding: 48px 24px 40px;
-    }
-    .header-inner {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    header .kicker {
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      opacity: 0.45;
-      margin-bottom: 10px;
-    }
-    header h1 {
-      font-size: clamp(28px, 6vw, 42px);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-    }
-    header .tagline {
-      margin-top: 12px;
+    h1 {
       font-size: 15px;
-      opacity: 0.5;
-      line-height: 1.5;
-    }
-
-    /* ── MAIN ── */
-    main {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 40px 16px 80px;
-    }
-
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+      color: #6b6b68;
+      margin-bottom: 20px;
     }
 
-    /* ── ENTRY CARD ── */
-    .entry-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 14px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      padding: 22px 22px 18px;
-      transition: box-shadow 0.15s ease, transform 0.15s ease;
-    }
-    .entry-card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.11), 0 2px 4px rgba(0,0,0,0.07);
-      transform: translateY(-1px);
-    }
-    .entry-card:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow);
+    .box {
+      background: #ffffff;
+      border: 1px solid #e2e2de;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 360px;
+      overflow: hidden;
     }
 
-    .entry-meta {
+    a.entry {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .entry-date {
-      background: var(--text);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 4px;
-    }
-    .entry-badge {
-      background: var(--tag-bg);
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 4px;
-    }
-    .entry-card h2 {
-      font-size: clamp(19px, 4.5vw, 23px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-      margin-bottom: 8px;
-    }
-    .entry-card p {
-      font-size: clamp(14px, 3.5vw, 16px);
-      color: #4a4a48;
-      line-height: 1.6;
-    }
-    .entry-footer {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-    }
-    .entry-arrow {
+      padding: 16px 20px;
+      text-decoration: none;
+      color: #111110;
       font-size: 16px;
-      opacity: 0.4;
-    }
-
-    /* ── TOPICS STRIP ── */
-    .topics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
-    }
-    .topic {
-      background: var(--tag-bg);
-      color: var(--muted);
-      font-size: 11px;
       font-weight: 500;
-      padding: 3px 9px;
-      border-radius: 100px;
+      border-bottom: 1px solid #e2e2de;
+      transition: background 0.1s;
     }
+    a.entry:last-child { border-bottom: none; }
+    a.entry:hover { background: #f4f4f2; }
+    a.entry:active { background: #ececea; }
 
-    /* ── EMPTY STATE ── */
-    .coming-soon {
-      background: var(--surface);
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 28px 22px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 16px;
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.8;
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    footer strong { color: var(--text); }
+    .entry-date { font-variant-numeric: tabular-nums; }
+    .entry-arrow { color: #c0c0bc; font-size: 14px; }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="kicker">Archivo de prensa · México</div>
-    <h1>Framings</h1>
-    <p class="tagline">Resúmenes diarios de noticias nacionales, financieras y columnas de opinión.<br>Fuente: ICE Asesores — Imagen y Comunicación Empresarial.</p>
-  </div>
-</header>
+  <h1>Framings</h1>
 
-<main>
-
-  <div class="section-label">2026 — Abril</div>
-
-  <!-- ── 2 de abril de 2026 ── -->
-  <a class="entry-card" href="noticias_20260402.html">
-    <div class="entry-meta">
-      <span class="entry-date">2 Abr 2026</span>
-      <span class="entry-badge">11 notas</span>
-    </div>
-    <h2>Cancíllería en relevo, Artemis II en órbita y economía bajo la lupa</h2>
-    <p>Roberto Velasco toma la SRE en el momento más tenso del TMEC. La misión Artemis II despega tras 54 años. Hacienda proyecta PIB de 1.8–2.8% y la inflación supera la meta de Banxico. Mineros atrapados en Sinaloa y la UIF cerca de Salinas Pliego.</p>
-    <div class="topics">
-      <span class="topic">Política</span>
-      <span class="topic">Economía</span>
-      <span class="topic">Espacio</span>
-      <span class="topic">Energía</span>
-      <span class="topic">Internacional</span>
-      <span class="topic">Mercados</span>
-    </div>
-    <div class="entry-footer">
-      <span>La Jornada · Milenio · Excélsior · Crónica · La Razón · El Economista</span>
+  <div class="box">
+    <a class="entry" href="noticias_20260402.html">
+      <span class="entry-date">2 de abril de 2026</span>
       <span class="entry-arrow">→</span>
-    </div>
-  </a>
-
-  <!-- Placeholder para días futuros -->
-  <div class="coming-soon">Próximas ediciones aparecerán aquí.</div>
-
-</main>
-
-<footer>
-  <strong>Framings</strong> · Resúmenes de prensa nacional mexicana<br>
-  Fuente primaria: <strong>ICE Asesores</strong> — Imagen y Comunicación Empresarial · ice-asesores.com
-</footer>
+    </a>
+  </div>
 
 </body>
 </html>
